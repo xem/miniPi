@@ -1,82 +1,51 @@
 <body bgcolor=0><tt id=o style=word-wrap:break-word;color:#0c4>
 <script>
 
-digits = 10000;
+// Implementation of the series: π = (4/1) - (4/3) + (4/5) - (4/7) + (4/9) - (4/11) + (4/13) - (4/15) ...
 
-function num(){
-  d=[];
-  for(n=digits;n>=0;n--){
-    d[n]=0;
-  }
-  return {d:d,m:digits};
-}
+// Init
+digits = 99;
+pi = [];
+denominator = 1;
+sign = 1;
 
-cp=(z)=>{
-  ret=num();
-  for(n=z.m;n>=0;n--)
-    ret.d[n]=z.d[n];
-  return ret;
-}
+// Loop
+setInterval(function(){
 
-set=(z,x)=>{
-  for(n=0;n<=z.m;n++){
-    x-=(z.d[n]=~~x);
-    x*=10;
-  }
-}
-
-sign=(z)=>{
-  for(n=0;n<=z.m;n++){
-    z.d[n]*=-1;
-    for(i=n;z.d[i]<0 && i>0;i--){
-      z.d[i]+=10;
-      z.d[i-1]--;
-    }
-  }
-}
-
-add=(z,x)=>{
-  for(n=z.m;n>=0;n--){
-    z.d[n]+=x.d[n];
-    if (z.d[n]>=10 && n>0){
-      z.d[n]-=10;
-      z.d[n-1]++;
-    }
-  }
-}
-
-div=(z,x)=>{
+  // Divide 4 by denominator
+  fraction = [4];
   r=0;
-  for(n=0;n<=z.m;n++){
-    r+=z.d[n];
-    z.d[n]=q=Math.floor(r/x);
-    r=(r-q*x)*10;
+  for(n = 0; n <= digits; n++){
+    fraction[n] |= 0;
+    r += fraction[n];
+    fraction[n] = q = Math.floor(r / denominator) || 0;
+    r = (r - q * denominator) * 10;
   }
-}
-
-s=num();
-k=0;
-A=num();
-set(A,16);
-div(A,5);
-B=num();
-set(B,-4);
-div(B,239);
-
-(iter=()=>{
-  a=cp(A);
-  div(a,2*k+1);
-  b=cp(B);
-  div(b,2*k+1);
-  add(s,a);
-  add(s,b);
-  sign(A);
-  div(A,25);
-  sign(B);
-  div(B,239*239);
-  k++;
-  o.innerHTML="&#x3c0;=3." + s.d.join("").slice(1,-9);
-  setTimeout(iter,0);
-})()
   
+  // Alternatively add / substract fraction to Pi
+  for(n = digits; n--;){
+    pi[n] |= 0;
+    if(sign){
+      pi[n] += fraction[n];
+      if(pi[n] > 9){
+        pi[n] -= 10;
+        pi[n-1]++;
+      }
+    }
+    else{
+      pi[n] -= fraction[n];
+      if(pi[n] < 1){
+        pi[n] += 10;
+        pi[n-1]--;
+      }
+    }
+  }
+  sign ^= 1;
+  
+  // Increment denominator
+  denominator += 2;
+  
+  // Print
+  o.innerHTML="&#x3c0;=3." + pi.join("").slice(1, digits);
+},0);
 </script>
