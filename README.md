@@ -5,7 +5,7 @@ Mini Pi approximations in JS (WIP)
 
 ---
 
-Gregory-Leibniz series:
+*Gregory-Leibniz series:*
 
 π = (4/1) - (4/3) + (4/5) - (4/7) + (4/9) - (4/11) + (4/13) - (4/15) ...
 
@@ -16,7 +16,7 @@ Gregory-Leibniz series:
 
 ---
 
-Nilakantha series:
+*Nilakantha series:*
 
 π = 3 + (4/(2*3*4)) - (4/(4*5*6)) + (4/(6*7*8)) - ...
 
@@ -27,8 +27,8 @@ Nilakantha series:
 
 ---
 
-Machin formula
-π = 16*atan(1/5) - 4*atan(1/239)
+*Machin formula:*
+π = 16*atan(1/5) - 4*atan(1/239)<br>
 with atan(x) = x - x^3/3 + x^5/5 - ...
 
 (linear! computes ~1,4 digit per iteration, inspired by http://stephenbrooks.org/misc/jspi/decimal_animated.html, to recode properly)
@@ -37,7 +37,7 @@ with atan(x) = x - x^3/3 + x^5/5 - ...
 
 ---
 
-Other "simple" formulae to test maybe:
+*Other "simple" formulae to test maybe:*
 
 - Pi = x * sin(180 / x), for x as big as possible
 - pi = 2 * (Arcsin(sqrt(1 - x^2)) + abs(Arcsin(x))), for x in [-1;1]
