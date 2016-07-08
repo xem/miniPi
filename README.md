@@ -23,6 +23,6 @@ Nilakantha series:
 (computes 10+ decimals in a few seconds)
 
 - [commented](http://xem.github.io/miniPi/2.html)
-- [golfed](http://xem.github.io/miniPi/2.min.html) (256b)
+- [golfed](http://xem.github.io/miniPi/2.min.html) (251b)
 
 ---
