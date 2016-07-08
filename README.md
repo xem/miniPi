@@ -28,12 +28,13 @@ Mini Pi approximations in JS (WIP)
 ---
 
 **Machin formula:**
+
 π = 16*atan(1/5) - 4*atan(1/239)<br>
 with atan(x) = x - x^3/3 + x^5/5 - ...
 
 (linear! computes ~1,4 digit per iteration, inspired by http://stephenbrooks.org/misc/jspi/decimal_animated.html, to recode properly)
 
-- [commented](http://xem.github.io/miniPi/3.html)
+- [readable](http://xem.github.io/miniPi/3.html)
 
 ---
 
