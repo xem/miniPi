@@ -23,7 +23,7 @@ Nilakantha series:
 (exponential: computes 10+ decimals in a few seconds then it gets very long)
 
 - [commented](http://xem.github.io/miniPi/2.html)
-- [golfed](http://xem.github.io/miniPi/2.min.html) (251b)
+- [golfed](http://xem.github.io/miniPi/2.min.html) (241b)
 
 ---
 
