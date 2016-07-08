@@ -15,7 +15,7 @@ setInterval(function(){
   // Divide 4 by denominator
   fraction = [4];
   r=0;
-  for(n = 0; n <= digits; n++){
+  for(n = 0; n < digits; n++){
     fraction[n] |= 0;
     r += fraction[n];
     fraction[n] = q = Math.floor(r / denominator) || 0;
@@ -34,7 +34,7 @@ setInterval(function(){
     }
     else{
       pi[n] -= fraction[n];
-      if(pi[n] < 1){
+      if(pi[n] < 0){
         pi[n] += 10;
         pi[n-1]--;
       }
@@ -46,6 +46,6 @@ setInterval(function(){
   denominator += 2;
   
   // Print
-  o.innerHTML="&#x3c0;=3." + pi.join("").slice(1, digits);
+  o.innerHTML="&#x3c0;=3." + pi.join("").slice(1);
 },0);
 </script>

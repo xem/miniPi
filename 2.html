@@ -1,0 +1,54 @@
+<body bgcolor=0 text=#0C4 id=o>
+<script>
+
+// Implementation of the series: π = 3 + (4/(2*3*4)) - (4/(4*5*6)) + (4/(6*7*8)) - (4/(8*9*10)) + (4/(10*11*12)) - ...
+
+// Init
+digits = 99;
+pi = [];
+denominator_start = 2;
+sign = 1;
+
+// Loop
+setInterval(function(){
+
+  // Divide 4 by denominator
+  fraction = [4];
+  r=0;
+  denominator = denominator_start * (denominator_start + 1) * (denominator_start + 2);
+  
+  for(n = 0; n < digits; n++){
+    fraction[n] |= 0;
+    r += fraction[n];
+    fraction[n] = q = Math.floor(r / denominator);
+    r = (r - q * denominator) * 10;
+  }
+
+  // Alternatively add / substract fraction to Pi
+  for(n = digits-1; n--;){
+    z=n+1;
+    pi[z] |= 0;
+    if(sign){
+      pi[z] += fraction[z];
+    }
+    else{
+      pi[z] -= fraction[z];
+    }
+    if(pi[z] > 9){
+      pi[z] -= 10;
+      pi[n]++;
+    }
+    if(pi[z] < 0){
+      pi[z] += 10;
+      pi[n]--;
+    }
+  }
+  
+  sign ^= 1;
+  denominator_start +=2;
+  
+  // Print
+  o.innerHTML="&#x3c0;=3." + pi.join('');
+
+},9);
+</script>
