@@ -3,79 +3,54 @@
 
 digits = 10000;
 
-function num(){
-  d=[];
-  for(n=digits;n>=0;n--){
-    d[n]=0;
-  }
-  return {d:d,m:digits};
-}
-
-cp=(z)=>{
-  ret=num();
-  for(n=z.m;n>=0;n--)
-    ret.d[n]=z.d[n];
-  return ret;
-}
-
-set=(z,x)=>{
-  for(n=0;n<=z.m;n++){
-    x-=(z.d[n]=~~x);
-    x*=10;
-  }
-}
-
 sign=(z)=>{
-  for(n=0;n<=z.m;n++){
-    z.d[n]*=-1;
-    for(i=n;z.d[i]<0 && i>0;i--){
-      z.d[i]+=10;
-      z.d[i-1]--;
-    }
+  for(n=0;n<digits;n++){
+    z[n]*=-1;
+    i=n;
+    while(z[i]<0 && i){
+      z[i]+=10;
+      z[i-1]--;
+      i--;
+    }    
   }
 }
 
-add=(z,x)=>{
-  for(n=z.m;n>=0;n--){
-    z.d[n]+=x.d[n];
-    if (z.d[n]>=10 && n>0){
-      z.d[n]-=10;
-      z.d[n-1]++;
-    }
-  }
-}
 
 div=(z,x)=>{
+  y=[];
   r=0;
-  for(n=0;n<=z.m;n++){
-    r+=z.d[n];
-    z.d[n]=q=Math.floor(r/x);
+  for(n=0;n<=digits;n++){
+    y[n] = z[n] || 0;
+    r+=y[n];
+    y[n]=q=Math.floor(r/x);
     r=(r-q*x)*10;
   }
+  return y;
 }
 
-s=num();
-k=0;
-A=num();
-set(A,16);
-div(A,5);
-B=num();
-set(B,-4);
-div(B,239);
+pi=[];
+k=1;
+A=div([16],5);
+B=div([-4],239);
 
 (iter=()=>{
-  a=cp(A);
-  div(a,2*k+1);
-  b=cp(B);
-  div(b,2*k+1);
-  add(s,a);
-  add(s,b);
+  a=div(A,k);
+  b=div(B,k);  
+  for(n=digits;n--;){
+    pi[n] |= 0;
+    pi[n]+=a[n]+b[n];
+    while(pi[n]>=10){
+      pi[n]-=10;
+      pi[n-1]++;
+    }
+  }
+  
   sign(A);
-  div(A,25);
+  A=div(A,5*5);
   sign(B);
-  div(B,239*239);
-  k++;
-  o.innerHTML="&#x3c0;=3." + s.d.join("").slice(1,-9);
+  B=div(B,239*239);
+  k+=2;
+  o.innerHTML="&#x3c0;=3." + pi.join("").slice(1,-9);
   setTimeout(iter,0);
 })()
   

@@ -1,0 +1,140 @@
+<body bgcolor=0 style=word-wrap:break-word text=#0c4 id=o>
+<script>
+
+// π = 16*atan(1/5) - 4*atan(1/239)
+// with atan(x) = x - x^3/3 + x^5/5 - x^7/7...
+
+// so: π = (16 * (1/5 ^ 1 / 1) - 4 * (1/239 ^ 1 / 1))
+//       + (- 16 * (1/5 ^ 3 / 3) + 4 * (1/239 ^ 3 / 3))
+//       + (16 * (1/5 ^ 5 / 5) - 4 * (1/239 ^ 5 / 5))
+//       + (- 16 * (1/5 ^ 7 / 7) + 4 * (1/239 ^ 7 / 7))
+//       ...
+
+// if we rearrange the numbers:
+
+// 
+
+// Init
+digits = 50;
+pi = [];
+sign = 1;
+denominator = 1;
+
+// Division (bignum z, int x), return nothing, updates z
+div=(z,x)=>{
+  r=0;
+  for(var n = 0; n <= digits; n++){
+    z[n] |= 0;
+    r += z[n];
+    z[n] = q = r / x | 0;
+    r = (r - q * x) * 10;
+  }
+}
+
+// Addition (bignum z, bignum x), return nothing, updates z
+add=(z,x)=>{
+  for(var n = digits; n >= 0; n--){
+    z[n] |= 0;
+    x[n] |= 0;
+    z[n] += x[n];
+    if(z[n] >= 10){
+      z[n] -= 10;
+      z[n-1]++;
+    }
+  }
+}
+
+// Substraction (bignum z, bignum x), return nothing, updates z
+sub=(z,x)=>{
+  for(var n = digits; n >= 0; n--){
+    z[n] |= 0;
+    x[n] |= 0;
+    z[n] -= x[n];
+    if(z[n] < 0){
+      z[n] += 10;
+      z[n-1]--;
+    }
+  }
+}
+
+// Multiplication by a power of 2 (bignum z, int x), return nothing, updates z
+// pmul(z, 2) = z * 4 // z=z+z; z=z+z;
+// pmul(z, 4) = z * 16 // z=z+z; z=z+z; z=z+z; z=z+z
+
+smul=(z,x)=>{
+  for(var i = 0; i < x; i++){
+    add(z,z);
+  }
+}
+
+// Power (bignum z, int x), return nothing, updates z
+// pow(z, 3) = z * z * z
+pow=(z,x)=>{
+  var r = [];
+  for(var n = digits; n >= 0; n--){
+    r[n] = z[n] || 0;
+  }
+  for(var i = 1; i < x; i++){
+    mul(r,z);
+  }
+  z = r;
+}
+
+// Loop
+loop = function(){
+
+  // Compute A = 16 * next term of atan(1/5) = ((1/5) ^ denominator) / (denominator)
+  A=[1];
+  div(A,5);
+  pow(A, denominator)
+  div(A, denominator);
+  pmul(A, 4);
+  console.log("A "+A);
+  
+  
+  // Compute B = next term of atan(1/239) = ((1/239) ^ denominator) / (denominator)
+  B=[1];
+  div(B, 239);
+  pow(B, denominator)
+  div(B, denominator);
+  pmul(B, 2);
+  console.log("B "+B);
+
+  // Alternate add / sub
+  if(sign){
+  
+    // Add A to Pi
+    add(pi, A);
+    
+    // Substract B to Pi
+    sub(pi, B);
+  }
+  
+  else{
+  
+    // Sub A to Pi
+    sub(pi, A);
+    
+    // Add B to Pi
+    add(pi, B);
+  }
+
+  // Invert sign
+  sign ^= 1;
+  
+  // Increment denominator
+  denominator += 2;
+
+  // Print
+  pi[0]="3.";
+  o.innerHTML = "&#x3c0;= " + pi.join("");
+
+  // Loop
+  //setTimeout(loop, 99);
+  
+  //console.log(sign);
+};
+
+loop();
+
+</script>
