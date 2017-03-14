@@ -29,7 +29,7 @@ Mini Pi approximations in JS (WIP)
 
 **Machin formula:**
 
-π = 16*atan(1/5) - 4*atan(1/239)<br>
+π = 16\*atan(1/5) - 4\*atan(1/239)<br>
 with atan(x) = x - x^3/3 + x^5/5 - x^7/7...
 
 which is equal to:
@@ -54,3 +54,4 @@ which is equal to:
 - π = (k_6 sqrt(k_3))/(S), where k_1 = 545140134; k_2 = 13591409; k_3 = 640320; k_4 = 100100025; k_5 = 327843840; k_6 = 53360; S = sum_(n = 0)^oo (-1)^n ((6n)!(k_2 + nk_1))/(n!^3(3n)!(8k_4k_5)^n)
 - π = SUM (k=0 to infinity) 16^-k [ 4/(8k+1) - 2/(8k+4) - 1/(8k+5) - 1/(8k+6) ]. (Bailey, Borwein, Plouffe formula)
 - π/2 = (2\*2)/(1\*3)\*(4\*4)/(3\*5)\*(6\*6)/(5\*7)... (Walli's formula)
+- [and many more!](http://www.pi314.net/eng/accueilformules.php)
